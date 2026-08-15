@@ -1,0 +1,191 @@
+{
+  "name": "zhihu-reader",
+  "displayName": "知乎阅读 · Zhihu Reader",
+  "description": "在 VS Code / Cursor 侧边栏安静阅读知乎推荐、问题回答与只读评论",
+  "version": "0.8.1",
+  "publisher": "local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ruiyou921-cloud/zhihu-reader.git"
+  },
+  "homepage": "https://github.com/ruiyou921-cloud/zhihu-reader#readme",
+  "bugs": {
+    "url": "https://github.com/ruiyou921-cloud/zhihu-reader/issues"
+  },
+  "icon": "resources/icon.png",
+  "galleryBanner": {
+    "color": "#171c23",
+    "theme": "dark"
+  },
+  "keywords": [
+    "知乎",
+    "阅读",
+    "推荐流",
+    "只读评论",
+    "zhihu",
+    "reader",
+    "sidebar"
+  ],
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "zhihu.openFeed",
+        "title": "知乎：打开/换一批推荐"
+      },
+      {
+        "command": "zhihu.importCookie",
+        "title": "知乎：导入登录 Cookie",
+        "icon": "$(key)"
+      },
+      {
+        "command": "zhihu.clearCookie",
+        "title": "知乎：清除登录信息",
+        "icon": "$(sign-out)"
+      },
+      {
+        "command": "zhihu.openOriginal",
+        "title": "知乎：在浏览器打开当前原文"
+      },
+      {
+        "command": "zhihu.loadComments",
+        "title": "知乎：只读查看当前回答评论"
+      },
+      {
+        "command": "zhihu.loadMoreComments",
+        "title": "知乎：加载更多当前回答评论"
+      },
+      {
+        "command": "zhihu.next",
+        "title": "知乎：下一条"
+      },
+      {
+        "command": "zhihu.prev",
+        "title": "知乎：上一条"
+      },
+      {
+        "command": "zhihu.refresh",
+        "title": "知乎：刷新当前/换一批",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "zhihu.openQuestion",
+        "title": "知乎：查看当前问题的回答"
+      },
+      {
+        "command": "zhihu.backToFeed",
+        "title": "知乎：返回推荐流"
+      },
+      {
+        "command": "zhihu.chooseSidebarPosition",
+        "title": "知乎：选择阅读面板停靠位置",
+        "icon": "$(layout-sidebar-right)"
+      },
+      {
+        "command": "zhihu.close",
+        "title": "知乎：关闭"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "zhihu-reader",
+          "title": "知乎阅读",
+          "icon": "resources/zhihu.svg"
+        }
+      ]
+    },
+    "views": {
+      "zhihu-reader": [
+        {
+          "type": "webview",
+          "id": "zhihuReader.sidebar",
+          "name": "知乎阅读",
+          "contextualTitle": "知乎阅读",
+          "icon": "resources/zhihu.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "zhihu.refresh",
+          "when": "view == zhihuReader.sidebar",
+          "group": "navigation@1"
+        },
+        {
+          "command": "zhihu.importCookie",
+          "when": "view == zhihuReader.sidebar",
+          "group": "navigation@2"
+        },
+        {
+          "command": "zhihu.chooseSidebarPosition",
+          "when": "view == zhihuReader.sidebar",
+          "group": "navigation@3"
+        },
+        {
+          "command": "zhihu.clearCookie",
+          "when": "view == zhihuReader.sidebar",
+          "group": "navigation@4"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Zhihu Reader",
+      "properties": {
+        "zhihuReader.requestIntervalMs": {
+          "type": "number",
+          "default": 1600,
+          "minimum": 500,
+          "maximum": 60000,
+          "description": "请求间隔（毫秒），防风控"
+        },
+        "zhihuReader.feedPageSize": {
+          "type": "number",
+          "default": 10,
+          "minimum": 1,
+          "maximum": 20,
+          "description": "每页拉取的推荐条数"
+        },
+        "zhihuReader.filterAds": {
+          "type": "boolean",
+          "default": true,
+          "description": "过滤推荐流中带有明确广告或推广标记的内容"
+        },
+        "zhihuReader.prefetchNextPage": {
+          "type": "boolean",
+          "default": true,
+          "description": "预取下一页 feed"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('out',{recursive:true,force:true})\"",
+    "compile": "node ./node_modules/typescript/bin/tsc -p ./",
+    "watch": "node ./node_modules/typescript/bin/tsc -w -p ./",
+    "typecheck": "node ./node_modules/typescript/bin/tsc -p ./ --noEmit",
+    "bundle": "node ./scripts/build.mjs",
+    "build": "npm run clean && npm run typecheck && npm run bundle",
+    "check": "npm test && npm run build",
+    "test": "npm run clean && npm run compile && node --test test/html2md.test.js test/fetcher.test.js test/sidebar.test.js test/branding.test.js",
+    "vscode:prepublish": "npm run build"
+  },
+  "dependencies": {
+    "node-html-parser": "^6.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.28.2",
+    "typescript": "^5.4.5"
+  }
+}

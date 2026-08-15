@@ -1,0 +1,11 @@
+src/**
+test/**
+scripts/**
+.github/**
+node_modules/**
+out/**/*.map
+*.vsix
+.gitignore
+.env*
+CONTRIBUTING.md
+SECURITY.md
