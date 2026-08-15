@@ -1,4 +1,4 @@
-# 知乎阅读 · Zhihu Reader
+# 知乎阅读插件 · Zhihu Reader
 
 [![持续集成](https://github.com/ruiyou921-cloud/zhihu-reader/actions/workflows/ci.yml/badge.svg)](https://github.com/ruiyou921-cloud/zhihu-reader/actions/workflows/ci.yml)
 [![许可证：MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
