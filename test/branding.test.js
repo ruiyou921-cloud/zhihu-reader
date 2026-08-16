@@ -27,5 +27,6 @@ test('默认启用基于明确接口标记的推荐广告过滤', () => {
 test('品牌图标和 README 介绍图尺寸正确', () => {
   assert.deepEqual(readPngInfo(path.join(root, 'resources', 'icon.png')), { width: 256, height: 256, colorType: 6 });
   assert.deepEqual(readPngInfo(path.join(root, 'resources', 'overview.png')), { width: 1200, height: 675, colorType: 6 });
-  assert.match(readme, /!\[知乎阅读界面概览\]\(resources\/overview\.png\)/);
+  assert.match(readme, /!\[知乎阅读演示\]\(resources\/demo\.gif\)/);
+  assert.equal(fs.existsSync(path.join(root, 'resources', 'demo.gif')), true);
 });

@@ -4,7 +4,7 @@
 [![许可证：MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![最新版本](https://img.shields.io/github/v/release/ruiyou921-cloud/zhihu-reader?display_name=tag)](https://github.com/ruiyou921-cloud/zhihu-reader/releases)
 
-![知乎阅读界面概览](resources/overview.png)
+![知乎阅读演示](resources/demo.gif)
 
 在 VS Code / Cursor 侧边栏中阅读知乎推荐流、问题回答及回答评论。界面采用类似 Agent 面板的单列布局，只读、不点赞、不发布评论，也不会在工作区生成内容文件。
 
